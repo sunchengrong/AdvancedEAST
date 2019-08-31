@@ -97,10 +97,14 @@ def shrink_edge(xy_list, new_xy_list, edge, r, theta, ratio=cfg.shrink_ratio):
 
 
 def process_label(data_dir=cfg.data_dir):
+    #读取val(验证集)文件
     with open(os.path.join(data_dir, cfg.val_fname), 'r') as f_val:
         f_list = f_val.readlines()
+    #读取train(训练集)文件
     with open(os.path.join(data_dir, cfg.train_fname), 'r') as f_train:
+        #将新读取数据(list) 追加到前一个list中
         f_list.extend(f_train.readlines())
+    #tqdm 进度条函数 用来显示进度条
     for line, _ in zip(f_list, tqdm(range(len(f_list)))):
         line_cols = str(line).strip().split(',')
         img_name, width, height = \
